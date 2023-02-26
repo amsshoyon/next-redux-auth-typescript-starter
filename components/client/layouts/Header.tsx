@@ -8,7 +8,7 @@ const Header = () => {
     const isAuthenticated = status === 'authenticated'
 
     return (
-        <header className='w-full sticky top-0 shadow-sm border-b py-4'>
+        <header className='w-full sticky top-0 shadow-sm border-b py-4 z-20'>
             <nav className="flex items-center justify-center lg:justify-between flex-wrap container">
                 <div className="flex items-center">
                     <Link href="/" className="text-indigo-500 font-bold text-lg">

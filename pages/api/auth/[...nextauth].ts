@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { redirect } from 'next/dist/server/api-utils';
 
 export const authOptions = {
     providers: [
@@ -21,9 +22,9 @@ export const authOptions = {
                     headers: { 'Content-Type': 'application/json' },
                 });
 
-                const { auth_token, auth_user_info } = await res.json();
+                const response = await res.json();
                 if (!res.ok) throw new Error('error');
-                if (res.ok && auth_token) return { token: auth_token, ...auth_user_info };
+                if (res.ok && response.auth_token) return { token: response.auth_token, ...response.auth_user_info };
                 return null;
             },
         }),
@@ -33,6 +34,10 @@ export const authOptions = {
         signIn: '/auth/login',
     },
     callbacks: {
+        async redirect({ url }: any) {
+            return Promise.resolve(url)
+        },
+
         async jwt({ token, user, account }: any) {
             if (account && user) {
                 return {

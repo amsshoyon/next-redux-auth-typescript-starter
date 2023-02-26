@@ -1,4 +1,6 @@
 import MotionContainer from "@/components/common/MotionContainer"
+import { Snakebar } from "@/utils/notistack"
+import { Button } from "@mui/material"
 
 const HomePage = () => {
 	return (
@@ -15,6 +17,12 @@ const HomePage = () => {
 					Starter Template. Get Started by editing.{" "}
 					<code className="bg-gray-100 text-blue-800 p-1">/index.njk</code>
 				</p>
+				<Button
+					variant="contained"
+					color="primary"
+					className="bg-primary"
+					onClick={()=> Snakebar.success('This is success')}
+				>Notistack</Button>
 				<div className="w-full max-w-2xl grid grid-cols-1 lg:grid-cols-2 gap-4 my-8 px-4 lg:mx-0">
 					<a href="https://tailwindcss.com/"
 						className="p-5 border rounded border-gray-200 hover:border-purple-400"

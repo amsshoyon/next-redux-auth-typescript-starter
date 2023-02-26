@@ -2,7 +2,7 @@ import { PasswordField } from '@/components/client/forms/FormFields';
 import { Button, TextField } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { signIn } from 'next-auth/react';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup';
 
 const LoginSchema = Yup.object().shape({
@@ -11,6 +11,13 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginCred = () => {
+    const [redirectUrl, setRedirectUrl] = useState('/')
+
+    useEffect(() => {
+        const url = new URL(location.href);
+        setRedirectUrl(url.searchParams.get("callbackUrl")!);
+    }, []);
+
     return (
         <Formik
             initialValues={{
@@ -23,7 +30,7 @@ const LoginCred = () => {
                     redirect: true,
                     username: values.username,
                     password: values.password,
-                    callbackUrl: '/',
+                    callbackUrl: redirectUrl,
                 });
             }}
         >
